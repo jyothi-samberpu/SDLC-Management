@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevPulse - SDLC Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-role="manager">
+
+    <header class="main-header">
+        <div class="logo">DevPulse <span class="accent-text">SDLC</span></div>
+        <div class="user-profile"></div>
+    </header>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <nav id="sidebar-nav">
+                <a href="#" class="nav-link active" data-target="kanban-view">📋 Kanban Board</a>
+                <a href="#" class="nav-link manager-only" data-target="analytics-view">📊 Project Analytics</a>
+                <a href="#" class="nav-link manager-only" data-target="team-view">👥 Team Overview</a>
+            </nav>
+        </aside>
+
+        <main class="content-area">
+            
+            <div id="kanban-view" class="view-section">
+                <header class="content-header">
+                    <div class="header-title-block">
+                        <h2>Project Workflow Board</h2>
+                        <p class="subtitle">Track development lifecycle items cleanly</p>
+                    </div>
+                    <button id="add-task-btn" class="btn-primary manager-only">+ Create New Task</button>
+                </header>
+
+                <section class="metrics-bar-container">
+                    <div class="metrics-labels">
+                        <span>Overall Project Progress</span>
+                        <span id="progress-percentage-text">0%</span>
+                    </div>
+                    <div class="progress-track-bg">
+                        <div id="dashboard-progress-bar" class="progress-fill"></div>
+                    </div>
+                </section>
+
+                <div class="kanban-board">
+                    <div class="kanban-column" data-status="To Do">
+                        <div class="column-header">
+                            <h3>To Do</h3>
+                            <span class="count-badge">0</span>
+                        </div>
+                        <div class="task-list" id="todo-tasks"></div>
+                    </div>
+
+                    <div class="kanban-column" data-status="In Progress">
+                        <div class="column-header">
+                            <h3>In Progress</h3>
+                            <span class="count-badge">0</span>
+                        </div>
+                        <div class="task-list" id="inprogress-tasks"></div>
+                    </div>
+
+                    <div class="kanban-column" data-status="Completed">
+                        <div class="column-header">
+                            <h3>Completed</h3>
+                            <span class="count-badge">0</span>
+                        </div>
+                        <div class="task-list" id="completed-tasks"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="analytics-view" class="view-section hidden">
+                <header class="content-header">
+                    <h2>📊 SDLC Lifecycle Analytics</h2>
+                    <p class="subtitle">Distribution of engineering tasks across SDLC phases</p>
+                </header>
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <h3>Requirements</h3>
+                        <div class="stat-number" id="stat-req">0</div>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Design</h3>
+                        <div class="stat-number" id="stat-design">0</div>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Development</h3>
+                        <div class="stat-number" id="stat-dev">0</div>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Testing</h3>
+                        <div class="stat-number" id="stat-test">0</div>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Deployment</h3>
+                        <div class="stat-number" id="stat-deploy">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="team-view" class="view-section hidden">
+                <header class="content-header">
+                    <h2>👥 Team Resource Allocation</h2>
+                    <p class="subtitle">Overview of active workloads per developer profile</p>
+                </header>
+                <div class="team-list-container">
+                    <table class="team-table">
+                        <thead>
+                            <tr>
+                                <th>Team Member</th>
+                                <th>Assigned Workload</th>
+                                <th>Status Distribution</th>
+                            </tr>
+                        </thead>
+                        <tbody id="team-table-body">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <div id="task-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3 id="modal-headline-title">Configure Task Details</h3>
+            <form id="task-form">
+                <div class="form-group">
+                    <label for="task-name">Task Title</label>
+                    <input type="text" id="task-name" required class="manager-editable">
+                </div>
+
+                <div class="form-group">
+                    <label for="task-phase">SDLC Phase Target</label>
+                    <select id="task-phase" class="manager-editable">
+                        <option value="Requirements">Requirements</option>
+                        <option value="Design">Design</option>
+                        <option value="Development">Development</option>
+                        <option value="Testing">Testing</option>
+                        <option value="Deployment">Deployment</option>
+                    </select>
+                </div>
+
+                <div class="form-group manager-only">
+                    <label for="task-assignee">Assigned Engineering Owner</label>
+                    <select id="task-assignee">
+                        <option value="alex_dev">alex_dev</option>
+                        <option value="sam_qa">sam_qa</option>
+                        <option value="Unassigned">Unassigned</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="task-status">Task Execution Status</label>
+                    <select id="task-status">
+                        <option value="To Do">To Do</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" id="close-modal" class="btn-secondary">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

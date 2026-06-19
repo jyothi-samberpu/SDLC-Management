@@ -1,0 +1,348 @@
+:root {
+    --bg-main: #f1f5f9;
+    --bg-sidebar: #ffffff;
+    --card-bg: #ffffff;
+    
+    /* High contrast lines */
+    --border-main: #0f172a;
+    
+    /* Text */
+    --text-main: #0f172a;
+    --text-muted: #475569;
+    
+    /* Solid, Flat Accent Pops */
+    --accent-primary: #2563eb;
+    --accent-todo: #eab308;
+    --accent-design: #a855f7;
+    --accent-inprogress: #38bdf8;
+    --accent-testing: #f43f5e;
+    --accent-completed: #22c55e;
+}
+
+body {
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace, system-ui;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    min-height: 100vh;
+}
+
+/* RBAC Guardrails */
+body[data-role="employee"] .manager-only { display: none !important; }
+body[data-role="manager"] .employee-only { display: none !important; }
+body[data-role="employee"] .manager-editable { pointer-events: none; opacity: 0.5; }
+
+/* Header Layout */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2.5rem;
+    background: var(--bg-sidebar);
+    border-bottom: 3px solid var(--border-main);
+}
+.logo {
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
+.logo span {
+    background: var(--accent-primary);
+    color: white;
+    padding: 0.1rem 0.4rem;
+    border: 2px solid var(--border-main);
+}
+
+/* Structural Split */
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: calc(100vh - 75px);
+}
+
+/* Sidebar Layout */
+.sidebar {
+    background: var(--bg-sidebar);
+    border-right: 3px solid var(--border-main);
+    padding: 2rem 1.25rem;
+}
+.sidebar nav a {
+    display: block;
+    color: var(--text-main);
+    text-decoration: none;
+    padding: 0.8rem 1.25rem;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: 2px solid transparent;
+    transition: all 0.15s ease;
+}
+.sidebar nav a:hover {
+    background: var(--bg-main);
+    border: 2px solid var(--border-main);
+}
+.sidebar nav a.active {
+    background: #ffde4d; /* Bright Retro Yellow */
+    color: var(--text-main);
+    border: 2px solid var(--border-main);
+    box-shadow: 4px 4px 0px var(--border-main);
+}
+
+/* Workspace Canvas */
+.content-area {
+    padding: 2.5rem;
+}
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+.content-header h2 {
+    font-size: 2rem;
+    font-weight: 900;
+    margin: 0;
+    text-transform: uppercase;
+}
+.subtitle {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+/* Flat High-Contrast Action Buttons */
+.btn-primary {
+    background: #ff5757;
+    color: #fff;
+    border: 2px solid var(--border-main);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0px;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px var(--border-main);
+    transition: all 0.1s ease;
+}
+.btn-primary:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px var(--border-main);
+}
+.btn-primary:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px var(--border-main);
+}
+.btn-secondary {
+    background: #ffffff;
+    color: var(--text-main);
+    border: 2px solid var(--border-main);
+    padding: 0.75rem 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+/* Linear Progress Bar Block */
+.metrics-bar-container {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border: 3px solid var(--border-main);
+    box-shadow: 5px 5px 0px var(--border-main);
+    margin-bottom: 2.5rem;
+}
+.metrics-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+.progress-track-bg {
+    background: #e2e8f0;
+    border: 2px solid var(--border-main);
+    height: 16px;
+}
+.progress-fill {
+    background: var(--accent-completed);
+    height: 100%;
+    width: 0%;
+    transition: width 0.4s steps(4, end);
+}
+
+/* Kanban Matrix View Grid Structure */
+.kanban-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+.kanban-column {
+    background: var(--card-bg);
+    border: 3px solid var(--border-main);
+    box-shadow: 6px 6px 0px var(--border-main);
+    padding: 1.5rem;
+    min-height: 600px;
+}
+.column-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid var(--border-main);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+.column-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+.count-badge {
+    background: #0f172a;
+    color: white;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+.task-list {
+    min-height: 520px;
+}
+.task-list.drag-over {
+    background: #f8fafc;
+    border: 2px dashed var(--border-main);
+}
+
+/* Blocky High-Contrast Task Cards */
+.task-card {
+    background: var(--card-bg);
+    border: 2px solid var(--border-main);
+    box-shadow: 4px 4px 0px var(--border-main);
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+    cursor: grab;
+    transition: all 0.1s ease;
+}
+.task-card h4 {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+.task-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px var(--border-main);
+    background-color: #fafafa;
+}
+
+/* Solid Flat Badges Mapping */
+.sdlc-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    border: 2px solid var(--border-main);
+    color: #000 !important;
+}
+.sdlc-tag[data-phase="Requirements"] { background: var(--accent-todo); }
+.sdlc-tag[data-phase="Design"]       { background: var(--accent-design); }
+.sdlc-tag[data-phase="Development"]  { background: var(--accent-inprogress); }
+.sdlc-tag[data-phase="Testing"]      { background: var(--accent-testing); }
+.sdlc-tag[data-phase="Deployment"]   { background: var(--accent-completed); }
+
+/* Analytical View Grid Layout */
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+.analytics-card {
+    background: var(--card-bg);
+    border: 3px solid var(--border-main);
+    box-shadow: 4px 4px 0px var(--border-main);
+    padding: 2rem 1.5rem;
+    text-align: center;
+}
+.analytics-card h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+.stat-number {
+    font-size: 3.5rem;
+    font-weight: 900;
+}
+
+/* Resource Allocation Tables */
+.team-list-container {
+    background: var(--card-bg);
+    border: 3px solid var(--border-main);
+    box-shadow: 5px 5px 0px var(--border-main);
+    padding: 1.5rem;
+}
+.team-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.team-table th {
+    padding: 1rem;
+    border-bottom: 3px solid var(--border-main);
+    font-weight: 900;
+    text-transform: uppercase;
+}
+.team-table td {
+    padding: 1.25rem 1rem;
+    border-bottom: 2px solid var(--border-main);
+    font-weight: 600;
+}
+
+/* System Overlays Modal Configuration */
+.hidden { display: none !important; }
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+.modal-content {
+    background: var(--card-bg);
+    padding: 2.5rem;
+    width: 440px;
+    border: 3px solid var(--border-main);
+    box-shadow: 10px 10px 0px var(--border-main);
+}
+.modal-content h3 {
+    margin: 0 0 1.5rem 0;
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+.form-group input, .form-group select {
+    background: #ffffff;
+    border: 2px solid var(--border-main);
+    padding: 0.75rem;
+    font-size: 1rem;
+    color: var(--text-main);
+}
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+}
